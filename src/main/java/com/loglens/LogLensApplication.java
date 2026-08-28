@@ -32,5 +32,8 @@ public class LogLensApplication {
 
         Map<String, Long> countsByService = analyzer.countByService(entries);
         System.out.println(countsByService);
+
+        String mostFrequentError = analyzer.findMostFrequentError(entries);
+        System.out.println("Most frequent error: " + mostFrequentError);
     }
 }

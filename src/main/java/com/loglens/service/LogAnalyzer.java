@@ -23,4 +23,18 @@ public class LogAnalyzer {
                         Collectors.counting()
                 ));
     }
+
+    public String findMostFrequentError(List<LogEntry> entries) {
+        return entries.stream()
+                .filter(entry -> entry.level().equals("ERROR"))
+                .collect(Collectors.groupingBy(
+                        LogEntry::message,
+                        Collectors.counting()
+                ))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("No errors");
+    }
 }
