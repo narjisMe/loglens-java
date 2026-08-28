@@ -15,4 +15,12 @@ public class LogAnalyzer {
                         Collectors.counting()
                 ));
     }
+
+    public Map<String, Long> countByService(List<LogEntry> entries) {
+        return entries.stream()
+                .collect(Collectors.groupingBy(
+                        LogEntry::service,
+                        Collectors.counting()
+                ));
+    }
 }

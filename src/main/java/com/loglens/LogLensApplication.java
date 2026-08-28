@@ -29,5 +29,8 @@ public class LogLensApplication {
 
         Map<String, Long> countsByLevel = analyzer.countByLevel(entries);
         System.out.println(countsByLevel);
+
+        Map<String, Long> countsByService = analyzer.countByService(entries);
+        System.out.println(countsByService);
     }
 }
