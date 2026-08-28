@@ -1,12 +1,14 @@
 package com.loglens;
 
 import com.loglens.model.LogEntry;
+import com.loglens.service.LogAnalyzer;
 import com.loglens.service.LogFileReader;
 import com.loglens.service.LogParser;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 public class LogLensApplication {
 
@@ -22,5 +24,10 @@ public class LogLensApplication {
                 .toList();
 
         entries.forEach(System.out::println);
+
+        LogAnalyzer analyzer = new LogAnalyzer();
+
+        Map<String, Long> countsByLevel = analyzer.countByLevel(entries);
+        System.out.println(countsByLevel);
     }
 }
