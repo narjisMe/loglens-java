@@ -17,7 +17,14 @@ public class LogLensApplication {
         LogFileReader reader = new LogFileReader();
         LogParser parser = new LogParser();
 
-        List<String> lines = reader.read(Path.of("sample.log"));
+        if (args.length == 0) {
+            System.out.println("Usage: java -jar loglens.jar <log-file>");
+            return;
+        }
+
+        Path logFile = Path.of(args[0]);
+
+        List<String> lines = reader.read(logFile);
 
         List<LogEntry> entries = lines.stream()
                 .map(parser::parse)
