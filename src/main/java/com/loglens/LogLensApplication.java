@@ -33,8 +33,17 @@ public class LogLensApplication {
         List<String> lines = reader.read(logFile);
 
         List<LogEntry> entries = lines.stream()
-                .map(parser::parse)
+                .map(line -> {
+                    try {
+                        return parser.parse(line);
+                    } catch (IllegalArgumentException e) {
+                        return null;
+                    }
+                })
+                .filter(entry -> entry != null)
                 .toList();
+
+        int invalidLines = lines.size() - entries.size();
 
         LogAnalyzer analyzer = new LogAnalyzer();
 
@@ -59,5 +68,7 @@ public class LogLensApplication {
         System.out.println("\nMost frequent error:");
         System.out.println("- " + mostFrequentError);
 
+        System.out.println("\nInvalid lines:");
+        System.out.println("- " + invalidLines);
     }
 }
