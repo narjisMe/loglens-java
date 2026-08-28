@@ -23,17 +23,28 @@ public class LogLensApplication {
                 .map(parser::parse)
                 .toList();
 
-        entries.forEach(System.out::println);
-
         LogAnalyzer analyzer = new LogAnalyzer();
 
         Map<String, Long> countsByLevel = analyzer.countByLevel(entries);
-        System.out.println(countsByLevel);
 
         Map<String, Long> countsByService = analyzer.countByService(entries);
-        System.out.println(countsByService);
 
         String mostFrequentError = analyzer.findMostFrequentError(entries);
-        System.out.println("Most frequent error: " + mostFrequentError);
+
+        System.out.println("--- LogLens Summary ---");
+
+        System.out.println("\nLogs by level:");
+        countsByLevel.forEach((level, count) ->
+                System.out.println("- " + level + ": " + count)
+        );
+
+        System.out.println("\nLogs by service:");
+        countsByService.forEach((service, count) ->
+                System.out.println("- " + service + ": " + count)
+        );
+
+        System.out.println("\nMost frequent error:");
+        System.out.println("- " + mostFrequentError);
+
     }
 }
