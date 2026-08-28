@@ -6,6 +6,7 @@ import com.loglens.service.LogFileReader;
 import com.loglens.service.LogParser;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,11 @@ public class LogLensApplication {
         }
 
         Path logFile = Path.of(args[0]);
+
+        if (!Files.exists(logFile)) {
+            System.out.println("Error: file not found: " + logFile);
+            return;
+        }
 
         List<String> lines = reader.read(logFile);
 
